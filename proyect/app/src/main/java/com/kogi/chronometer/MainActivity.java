@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private int STOP = 0;
     private int PAUSE = 1;
     private int RUNNING = 2;
-    private int STATE = 0;
+    private int STATE;
 
     Button buttonStartPause;
     TextView textTimer;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        STATE = STOP;
         textTimer = (TextView) findViewById(R.id.txtTime);
         buttonStartPause = (Button) findViewById(R.id.btnStartPause);
     }

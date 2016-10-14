@@ -11,25 +11,43 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kogi.chronometer.MainActivity">
 
+    <Button
+        android:text="@string/label_record"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
+        android:id="@+id/btnRecord"/>
+
+    <Button
+        android:text="@string/label_start"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonStartPause"
+        android:id="@+id/btnStartPause"
+        android:layout_alignBaseline="@+id/btnRecord"
+        android:layout_alignBottom="@+id/btnRecord"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/txtTime"
-        android:textSize="30sp"
+        android:textSize="60sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:text="@string/template_timer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"/>
 
     <Button
-        android:text="Start"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnStop"
+        android:text="@string/label_stop"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:onClick="buttonStartPause"
-        android:layout_marginTop="65dp"
-        android:id="@+id/btnStartPause"
-        android:layout_below="@+id/txtTime"
-        android:layout_centerHorizontal="true"/>
-
+        android:layout_alignBaseline="@+id/btnStartPause"
+        android:layout_alignBottom="@+id/btnStartPause"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>
