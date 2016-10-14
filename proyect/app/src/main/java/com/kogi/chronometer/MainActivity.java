@@ -5,20 +5,29 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private Handler customHandler = new Handler();
+    ArrayList<String> arrayList;
+    ArrayAdapter<String> adapter;
+
+    private int STATE;
     private final int STOP = 0;
     private final int PAUSE = 1;
     private final int RUNNING = 2;
-    private int STATE;
+    private int lapsCounter;
 
     Button buttonStartPause;
     TextView textTimer;
+    ListView listLaps;
 
     long startTime = 0L;
     long timeInMilliseconds = 0L;
@@ -29,9 +38,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        STATE = STOP;
+
+        listLaps = (ListView) findViewById(R.id.lstLaps);
         textTimer = (TextView) findViewById(R.id.txtTime);
         buttonStartPause = (Button) findViewById(R.id.btnStartPause);
+
+        STATE = STOP;
+        lapsCounter = 0;
+
+        arrayList = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
+        listLaps.setAdapter(adapter);
     }
 
     /**
@@ -46,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
             STATE = RUNNING;
             startTime = SystemClock.uptimeMillis();
             customHandler.postDelayed(updateTimerThread, 0);
-            buttonStartPause.setText(getResources().getString(R.string.label_pause));
+            buttonStartPause.setText(getString(R.string.label_pause));
         } else {
             STATE = PAUSE;
             timeSwapBuff += timeInMilliseconds;
             customHandler.removeCallbacks(updateTimerThread);
-            buttonStartPause.setText(getResources().getString(R.string.label_start));
+            buttonStartPause.setText(getString(R.string.label_start));
         }
     }
 
@@ -63,7 +80,11 @@ public class MainActivity extends AppCompatActivity {
      * @param view Referencia a la vista actual
      */
     public void buttonRecordTime(View view) {
-
+        if (STATE != PAUSE && STATE != STOP) {
+            lapsCounter += 1;
+            arrayList.add(0, String.format("%s\t\t\t%s", lapsCounter, textTimer.getText()));
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -75,12 +96,19 @@ public class MainActivity extends AppCompatActivity {
      */
     public void buttonStop(View view) {
         customHandler.removeCallbacks(updateTimerThread);
+        arrayList = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
+        listLaps.setAdapter(adapter);
+
         STATE = STOP;
+        lapsCounter = 0;
+
         startTime = 0L;
         timeInMilliseconds = 0L;
         timeSwapBuff = 0L;
         updatedTime = 0L;
-        textTimer.setText(getResources().getString(R.string.template_timer));
+        textTimer.setText(getString(R.string.template_timer));
+        buttonStartPause.setText(getString(R.string.label_start));
     }
 
     /**
