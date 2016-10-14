@@ -12,9 +12,9 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private Handler customHandler = new Handler();
-    private int STOP = 0;
-    private int PAUSE = 1;
-    private int RUNNING = 2;
+    private final int STOP = 0;
+    private final int PAUSE = 1;
+    private final int RUNNING = 2;
     private int STATE;
 
     Button buttonStartPause;
@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
      * @param view Referencia a la vista actual
      */
     public void buttonStartPause(View view) {
-        if (STATE == STOP) {
+        if (STATE == PAUSE || STATE == STOP) {
             STATE = RUNNING;
             startTime = SystemClock.uptimeMillis();
             customHandler.postDelayed(updateTimerThread, 0);
             buttonStartPause.setText(getResources().getString(R.string.label_pause));
         } else {
-            STATE = STOP;
+            STATE = PAUSE;
             timeSwapBuff += timeInMilliseconds;
             customHandler.removeCallbacks(updateTimerThread);
             buttonStartPause.setText(getResources().getString(R.string.label_start));
@@ -74,7 +74,13 @@ public class MainActivity extends AppCompatActivity {
      * @param view Referencia a la vista actual
      */
     public void buttonStop(View view) {
-
+        customHandler.removeCallbacks(updateTimerThread);
+        STATE = STOP;
+        startTime = 0L;
+        timeInMilliseconds = 0L;
+        timeSwapBuff = 0L;
+        updatedTime = 0L;
+        textTimer.setText(getResources().getString(R.string.template_timer));
     }
 
     /**
