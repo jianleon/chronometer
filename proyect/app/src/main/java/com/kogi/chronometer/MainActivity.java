@@ -5,6 +5,7 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         listLaps = (ListView) findViewById(R.id.lstLaps);
         textTimer = (TextView) findViewById(R.id.txtTime);
         buttonStartPause = (Button) findViewById(R.id.btnStartPause);
+        textTimer.setTextColor(getResources().getColor(android.R.color.darker_gray));
 
         STATE = STOP;
         lapsCounter = 0;
@@ -63,12 +65,16 @@ public class MainActivity extends AppCompatActivity {
             STATE = RUNNING;
             startTime = SystemClock.uptimeMillis();
             customHandler.postDelayed(updateTimerThread, 0);
+            textTimer.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+            textTimer.clearAnimation();
             buttonStartPause.setText(getString(R.string.label_pause));
         } else {
             STATE = PAUSE;
             timeSwapBuff += timeInMilliseconds;
             customHandler.removeCallbacks(updateTimerThread);
             buttonStartPause.setText(getString(R.string.label_start));
+            textTimer.setTextColor(getResources().getColor(android.R.color.holo_blue_dark));
+            textTimer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.blink));
         }
     }
 
@@ -109,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
         updatedTime = 0L;
         textTimer.setText(getString(R.string.template_timer));
         buttonStartPause.setText(getString(R.string.label_start));
+
+        textTimer.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        textTimer.clearAnimation();
     }
 
     /**
