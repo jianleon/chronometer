@@ -1,5 +1,7 @@
 # Chronometer
 
+Prueba Kogi
+
 ## Requerimientos
 
 Implementar una aplicación que funcione como cronómetro con las siguientes características:
