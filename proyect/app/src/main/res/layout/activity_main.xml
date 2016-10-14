@@ -12,21 +12,26 @@
     tools:context="com.kogi.chronometer.MainActivity">
 
     <Button
+        android:id="@+id/btnRecord"
+        android:onClick="buttonRecordTime"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
         android:text="@string/label_record"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="12dp"
-        android:id="@+id/btnRecord"/>
+        android:layout_marginBottom="12dp"/>
 
     <Button
+        android:id="@+id/btnStartPause"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
         android:text="@string/label_start"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:onClick="buttonStartPause"
-        android:id="@+id/btnStartPause"
         android:layout_alignBaseline="@+id/btnRecord"
         android:layout_alignBottom="@+id/btnRecord"
         android:layout_centerHorizontal="true"/>
@@ -43,6 +48,9 @@
 
     <Button
         android:id="@+id/btnStop"
+        android:onClick="buttonStop"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
         android:text="@string/label_stop"
         android:layout_width="100dp"
         android:layout_height="wrap_content"

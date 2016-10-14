@@ -34,20 +34,52 @@ public class MainActivity extends AppCompatActivity {
         buttonStartPause = (Button) findViewById(R.id.btnStartPause);
     }
 
+    /**
+     * Funcionalidad del botón Start/Pause
+     *
+     * Dependiendo del estado actual del timer, 'Pausa' o 'Inicia' el cronómetro
+     *
+     * @param view Referencia a la vista actual
+     */
     public void buttonStartPause(View view) {
         if (STATE == STOP) {
             STATE = RUNNING;
             startTime = SystemClock.uptimeMillis();
             customHandler.postDelayed(updateTimerThread, 0);
-            buttonStartPause.setText("PAUSE");
+            buttonStartPause.setText(getResources().getString(R.string.label_pause));
         } else {
             STATE = STOP;
             timeSwapBuff += timeInMilliseconds;
             customHandler.removeCallbacks(updateTimerThread);
-            buttonStartPause.setText("START");
+            buttonStartPause.setText(getResources().getString(R.string.label_start));
         }
     }
 
+    /**
+     * Funcionalidad del botón Record
+     *
+     * Se encarga de agregar el tiempo actual del cronómetro en una lista de 'vueltas'
+     *
+     * @param view Referencia a la vista actual
+     */
+    public void buttonRecordTime(View view) {
+
+    }
+
+    /**
+     * Funcionalidad del botón Stop
+     *
+     * Se encarga de parar el cronómetro e inicializar los componentes del cronómetro
+     *
+     * @param view Referencia a la vista actual
+     */
+    public void buttonStop(View view) {
+
+    }
+
+    /**
+     * Método asíncrono encargado de actualizar el timer del UI
+     */
     private Runnable updateTimerThread = new Runnable() {
 
         public void run() {
