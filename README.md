@@ -12,5 +12,4 @@ Implementar una aplicación que funcione como cronómetro con las siguientes car
 * Se debe mostrar los minutos, segundos y milisegundos en tres digitos
 * Cuando el conteo entra en pausa el contador debe parpadear indicando que se encuentra en este estado
 * Debe contener un indicador de color para el cambio entre los siguientes estados:`Sin iniciar`, `Corriendo`, `Pausa`
-
 * Debe soportar cambio de orientación y estar desarrollada para mínimo API Level 17.
